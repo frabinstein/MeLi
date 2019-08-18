@@ -78,14 +78,16 @@
         app.finalizado = false;
       },
       saveFile: function() {
-        const blob = new Blob([JSON.stringify(app.resultados)], {type: 'text/plain'})
-        const e = document.createEvent('MouseEvents'),
-        a = document.createElement('a');
+        const blob = new Blob([JSON.stringify(app.resultados)], {type: 'text/plain'});
+        const e = document.createEvent('MouseEvents');
+        const a = document.createElement('a');
         a.download = "";
         app.seller_id.forEach(x => { a.download = a.download + x + "-" });
         a.download = a.download + app.site_id + ".json";
         a.href = window.URL.createObjectURL(blob);
-        a.click();
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+        e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        a.dispatchEvent(e);
         window.URL.revokeObjectURL(a.href);
       }
     }
