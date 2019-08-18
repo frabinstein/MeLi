@@ -35,7 +35,6 @@
         .then(json => json.name);
 	}
 
-    console.log("items = " + JSON.stringify(items));
     return items;
   }
 
@@ -57,6 +56,7 @@
     },
     methods: {
       async onSubmit() {
+        app.finalizado = false;
         app.inicializado = true;
         app.site_id = this.site_id;
         if(typeof app.seller_id === "string") {
@@ -64,22 +64,10 @@
         }
         let resultadosParciales = app.seller_id.map(async(x, i) => {
           app.seller_id[i] = app.seller_id[i].trim();
-          console.log("corrida " + i);
           return await llenarTabla(app.site_id, app.seller_id[i]);
         });
-/*
-        resultadosParciales = app.seller_id.reduce(async(v, x, i) => {
-            app.seller_id[i] = app.seller_id[i].trim();
-            console.log("corrida " + i);
-            return v.concat(await llenarTabla(app.site_id, app.seller_id[i]));
-          }, []);
-        console.log("resultadosParciales = " + JSON.stringify(await Promise.all(resultadosParciales)));
-        console.log("resultadosParciales reducidos = " + JSON.stringify(await Promise.all(resultadosParciales.reduce(function(v, x) { return v.concat(x); }, []))));
-        app.resultados = await Promise.all(resultadosParciales.reduce(function(v, x) { return v.concat(x); }, []));
-*/
         app.resultados = await Promise.all(resultadosParciales);
         app.resultados = app.resultados.reduce(function(v, x) { return v.concat(x); }, []);
-        console.log("finalizado");
         app.finalizado = true;
       },
       onReset() {
@@ -102,4 +90,3 @@
       }
     }
   });
-
