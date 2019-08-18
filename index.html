@@ -62,15 +62,15 @@
 				  <td class="text-center" colspan="5">Realice una consulta para ver los resultados</td>
 				</tr>
                 <!-- Mientras busca -->
-				<tr hidden :hidden="!inicializado" :hidden="finalizado" v-else-if="!finalizado">
+				<tr v-else-if="inicializado && !finalizado">
 				  <td class="text-center" colspan="5">Buscando...</td>
 				</tr>
                 <!-- Si no hay resultados -->
-				<tr hidden :hidden="!finalizado" v-else-if="resultados.length === 0">
+				<tr v-else-if="finalizado && resultados.length === 0">
 				  <td class="text-center font-weight-bold" colspan="5">No se encontraron resultados para los criterios indicados</td>
 				</tr>
 				<!-- Si hay resultados, entonces genera la tabla de resultados -->
-				<tr hidden :hidden="!finalizado" v-else v-for="(value, key) in resultados">
+				<tr v-else v-for="(value, key) in resultados">
 				  <td class="text-center"> {{value.seller_id}} </td>
 				  <td class="text-center"> {{value.item_id}} </td>
 				  <td class="text-center"> {{value.item_title}} </td>
