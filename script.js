@@ -46,6 +46,7 @@
     el: '#app',
     data: {
       inicializado: false,
+      finalizado: false,
       site_id: "",
       seller_id: [],
       resultados: [],
@@ -53,19 +54,21 @@
     },
     methods: {
       onSubmit() {
+        app.inicializado = true;
         app.site_id = this.site_id;
         app.seller_id = this.seller_id.split(",");
         app.seller_id.forEach(function(x, i) {
           app.seller_id[i] = app.seller_id[i].trim();
           llenarTabla(app.site_id, app.seller_id[i]);
         });
-        app.inicializado = true;
+        app.finalizado = true;
       },
       onReset() {
 		app.site_id = "";
 		app.seller_id = [];
         app.resultados = [];
         app.inicializado = false;
+        app.finalizado = false;
       },
       saveFile: function() {
         const blob = new Blob([JSON.stringify(app.resultados)], {type: 'text/plain'})
