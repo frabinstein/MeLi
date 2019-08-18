@@ -9,3 +9,4 @@ Instrucciones de uso:
 5. Presione "Exportar resultados" para descargar en formato .json
 6. El botón "Limpiar todo" restablece todos los campos
 
+NOTA: funciona sobre Chrome o Firefox
